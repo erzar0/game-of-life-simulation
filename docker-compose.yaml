@@ -1,0 +1,9 @@
+services:
+  client:
+    build:
+      context: ./client/
+      target: developement
+    volumes:
+      - ./client:/code
+    ports:
+      - 3000:3000

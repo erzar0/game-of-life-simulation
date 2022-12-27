@@ -1,5 +1,5 @@
 import "./navbar.css";
-import { parseHtmlString } from "../../utils/basicUtils";
+import parseHtmlString from "../../utils/basicUtils";
 
 async function loadNavbar() {
   let navbarText;
@@ -11,6 +11,7 @@ async function loadNavbar() {
   }
 
   const body = document.querySelector("body");
+  console.log(body);
   if (body && navbarText) {
     body.prepend(parseHtmlString(navbarText));
   }

@@ -1,0 +1,17 @@
+nav {
+  position: sticky;
+  height: 10%;
+  background-color: var(--colorDarker);
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+nav > a {
+  padding: 0.5rem;
+  text-decoration: none;
+  color: var(--colorText);
+}
+
+nav > a:hover {
+  background-color: var(--colorContrast);
+}

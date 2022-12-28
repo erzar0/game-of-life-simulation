@@ -1,9 +1,14 @@
 import "./index.css";
-import loadLayout from "./layout/loadLayout";
-import Grid from "./types/Grid";
+import gameOfLifeRule from "./src/gameOfLifeRule";
+import loadLayout from "./src/layout/loadLayout";
+import CellularAutomata from "./src/types/CellularAutomata";
 
 (async () => {
   loadLayout();
-  const grid = new Grid();
-  grid.print();
+  const gol = new CellularAutomata(gameOfLifeRule, null);
+  setInterval(() => {
+    console.clear();
+    gol.print();
+    gol.update();
+  }, 200);
 })();

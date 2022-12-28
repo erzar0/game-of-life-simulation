@@ -1,4 +1,4 @@
-import loadLayout from "../layout/loadLayout";
+import loadLayout from "../src/layout/loadLayout";
 
 (async () => {
   loadLayout();

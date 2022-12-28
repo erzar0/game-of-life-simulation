@@ -14,7 +14,6 @@ function loadNavbar() {
   if (body) {
     body.prepend(parseHtmlElement(navbarHtml));
   }
-  console.log(body);
 }
 
 export default loadNavbar;

@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("./layout/footer/footer.css");
+@import url("./layout/navbar/navbar.css");
 :root {
   font-family: Roboto, sans-serif;
   --colorContrast: #e63946ff;

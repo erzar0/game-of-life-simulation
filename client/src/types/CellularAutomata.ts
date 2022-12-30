@@ -10,6 +10,7 @@ class CellularAutomata extends Grid {
     super(initializer);
     this.rule = rule;
   }
+  ////////////////////////////////////////////////////////////////////////////
   public update() {
     const newCells = this.cells?.map((cellsRow) => [...cellsRow]);
     const { width, height } = this.size;
@@ -22,7 +23,7 @@ class CellularAutomata extends Grid {
     this.cells = newCells;
   }
 
-  ///////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
   private rule: CellularAutomataRule;
 }
 

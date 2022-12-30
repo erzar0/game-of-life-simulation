@@ -63,9 +63,24 @@ export default class Grid {
       }
     });
   }
+  public get $size(): Size {
+    return this.size;
+  }
+  public set $size(size: Size) {
+    this.initCells(this.size);
+    this.size = size;
+  }
+  public get $cells(): Cell[][] {
+    return this.cells;
+  }
+  public set $cells(cells: Cell[][]) {
+    this.cells = cells;
+    this.size = { height: this.cells?.length, width: this.cells[0].length };
+  }
   ////////////////////////////////////////////////////////////////////////////
   protected cells: Cell[][] = [[1]];
   protected size: Size = { height: 1, width: 1 };
+  ////////////////////////////////////////////////////////////////////////////
   private initCells(size: Size) {
     this.cells = [];
     for (let i = 0; i < size.height; i++) {

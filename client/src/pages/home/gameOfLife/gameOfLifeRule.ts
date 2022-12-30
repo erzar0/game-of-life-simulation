@@ -1,5 +1,5 @@
-import { Size, Position, Cell } from "./types/Grid";
-import CellularAutomataRule from "./types/CellularAutomataRule";
+import { Size, Position, Cell } from "../../../types/Grid";
+import CellularAutomataRule from "../../../types/CellularAutomataRule";
 
 const getAvailableNieghbourPositions = (
   gridSize: Size,

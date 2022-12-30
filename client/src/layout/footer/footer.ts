@@ -1,4 +1,3 @@
-import "./footer.css";
 import parseHtmlElement from "../../utils/parseHtmlElement";
 import html from "../../utils/html";
 

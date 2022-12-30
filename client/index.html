@@ -3,10 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="./index.ts" defer></script>
+    <link rel="stylesheet" href="./src/main.css" />
+    <script type="module" src="./src/main.ts" defer></script>
     <title>Game of Life</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <svg
+        viewbox="-50 -50 350 350 "
+        id="svg-canvas"
+        width="300"
+        height="300"
+      ></svg>
+    </div>
   </body>
 </html>

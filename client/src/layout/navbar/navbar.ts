@@ -1,4 +1,3 @@
-import "./navbar.css";
 import html from "../../utils/html";
 import parseHtmlElement from "../../utils/parseHtmlElement";
 

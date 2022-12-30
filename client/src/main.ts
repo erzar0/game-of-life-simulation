@@ -8,7 +8,6 @@ import home from "./pages/home/home";
       home();
       break;
     case "/about/":
-      console.log("aaaaa");
       break;
     default:
       break;

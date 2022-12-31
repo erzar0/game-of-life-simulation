@@ -1,5 +1,5 @@
-import { Size, Position, Cell } from "../../../types/Grid";
-import CellularAutomataRule from "../../../types/CellularAutomataRule";
+import { Size, Position, Cell } from "../../types/Grid";
+import CellularAutomataRule from "../../types/CellularAutomataRule";
 
 const getAvailableNieghbourPositions = (
   gridSize: Size,
@@ -45,8 +45,7 @@ const gameOfLifeRule: CellularAutomataRule = (
   const { x, y } = cellPosition;
   if (cells[y][x] === 1 && (neighbourCount === 2 || neighbourCount === 3)) {
     return 1;
-  }
-  if (cells[y][x] === 0 && neighbourCount === 3) {
+  } else if (cells[y][x] === 0 && neighbourCount === 3) {
     return 1;
   }
   return 0;

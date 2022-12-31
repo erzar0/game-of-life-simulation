@@ -1,0 +1,33 @@
+services:
+  client:
+    build:
+      context: ./client/
+      target: developement
+    volumes:
+      - ./client:/code
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    env_file:
+      - ./client/.dev.env
+
+  server:
+    build:
+      context: ./server/
+      target: developement
+    volumes:
+      - ./server:/code
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongo_db
+    env_file:
+      - ./server/.dev.env
+
+  mongo_db:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./data/db:/data/db
+    command: mongod --quiet --logpath /dev/null

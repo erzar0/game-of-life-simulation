@@ -8,13 +8,14 @@
     <title>Game of Life</title>
   </head>
   <body>
-    <div id="app">
-      <svg
-        viewbox="-50 -50 350 350 "
-        id="svg-canvas"
-        width="300"
-        height="300"
-      ></svg>
-    </div>
+    <main id="app">
+      <div id="config-panel">
+        <input id="stop" type="button" value="stop" />
+        <input id="start" type="button" value="start" />
+        <input id="clear" type="button" value="clear" />
+        <input id="tickrate" type="range" min="1" max="60" value="1" />
+      </div>
+      <svg id="svg-canvas" width="1000" height="1000"></svg>
+    </main>
   </body>
 </html>

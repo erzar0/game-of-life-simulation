@@ -39,6 +39,7 @@ export default class Grid {
     }
     this.size = { height: this.cells?.length, width: this.cells[0].length };
   }
+  ////////////////////////////////////////////////////////////////////////////
   public print() {
     let grid = "";
     const { width, height } = this.size;
@@ -63,6 +64,23 @@ export default class Grid {
       }
     });
   }
+  public getConfig(): GridConfig {
+    const enabledCells: Position[] = [];
+    for (let i = 0; i < this.size.height; i++) {
+      for (let j = 0; j < this.size.width; j++) {
+        if (this.cells[i][j]) {
+          enabledCells.push({ x: j, y: i });
+        }
+      }
+    }
+    const config: GridConfig = { enabledCells, gridSize: this.size };
+    return config;
+  }
+
+  public clearCells(): void {
+    this.initCells(this.$size);
+  }
+
   public get $size(): Size {
     return this.size;
   }
@@ -78,8 +96,8 @@ export default class Grid {
     this.size = { height: this.cells?.length, width: this.cells[0].length };
   }
   ////////////////////////////////////////////////////////////////////////////
-  protected cells: Cell[][] = [[1]];
-  protected size: Size = { height: 1, width: 1 };
+  private cells: Cell[][] = [[1]];
+  private size: Size = { height: 1, width: 1 };
   ////////////////////////////////////////////////////////////////////////////
   private initCells(size: Size) {
     this.cells = [];

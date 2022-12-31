@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import loadLayout from "./layout/loadLayout";
 import home from "./pages/home/home";
 

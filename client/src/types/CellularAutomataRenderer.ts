@@ -14,8 +14,7 @@ class CellularAutomataRenderer {
     this.initRenderedCells();
   }
 
-  public updateAndRender(): void {
-    console.log(this.cellularAutomata);
+  public step(): void {
     this.cellularAutomata.update();
     const { width: gridWidth, height: gridHeight } =
       this.cellularAutomata.$size;
@@ -30,6 +29,11 @@ class CellularAutomataRenderer {
     }
   }
 
+  public clearCells(): void {
+    this.cellularAutomata.clearCells();
+    this.step();
+  }
+
   //////////////////////////////////////////////////////////////////////////////
   private svgCanvas: SVGAElement;
   private svgSize: Size;
@@ -42,7 +46,6 @@ class CellularAutomataRenderer {
     const { width: svgWidth, height: svgHeight } = this.svgSize;
     const dx = svgWidth / gridWidth;
     const dy = svgHeight / gridHeight;
-    console.log(this.svgSize);
     for (let i = 0; i <= gridHeight; i++) {
       const y = i * dy;
       this.svgCanvas.appendChild(createSvgLine(0, svgWidth, y, y));
@@ -73,9 +76,13 @@ class CellularAutomataRenderer {
           this.cellularAutomata.$cells[i][j] === 1 ? "red" : "white"
         );
         rect.addEventListener("pointerover", (e) => {
-          if (this.cellularAutomata.$cells[i][j] === 0 && e.buttons === 1) {
+          const cell = this.cellularAutomata.$cells[i][j];
+          if (cell === 0 && e.buttons === 1) {
             this.cellularAutomata.$cells[i][j] = 1;
             (e.target as SVGAElement).style.fill = "red";
+          } else if (cell === 1 && e.buttons === 2) {
+            this.cellularAutomata.$cells[i][j] = 0;
+            (e.target as SVGAElement).style.fill = "white";
           }
         });
 

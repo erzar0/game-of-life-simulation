@@ -1,17 +1,28 @@
 nav {
+  display: flex;
   position: sticky;
   height: 10%;
   background-color: var(--colorDarker);
   margin: 0;
-  padding: 0.5rem 0;
 }
 
-nav > a {
+a {
   padding: 0.5rem;
   text-decoration: none;
   color: var(--colorText);
 }
 
-nav > a:hover {
+a:hover {
   background-color: var(--colorContrast);
+}
+
+#account {
+  display: flex;
+  margin-left: auto;
+  /* margin: 0; */
+}
+
+.account-element {
+  margin: 0;
+  padding: 0.5rem;
 }

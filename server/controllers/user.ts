@@ -41,7 +41,7 @@ const register = async (
       });
       try {
         await newUser.save();
-        return res.status(201).json({ newUser });
+        return res.status(201).json({ user: newUser });
       } catch (error) {
         if (error instanceof Error) {
           return res.status(500).json({
@@ -52,7 +52,12 @@ const register = async (
       }
     });
   } catch (error) {
-    return res.status(500);
+    if (error instanceof Error) {
+      return res.status(500).json({
+        message: error.message,
+        error,
+      });
+    }
   }
 };
 
@@ -62,7 +67,7 @@ const login = (req: UserAuthInfoRequest, res: Response, next: NextFunction) => {
     .exec()
     .then((users) => {
       if (users.length !== 1) {
-        return res.status(500);
+        return res.status(500).end();
       }
 
       bycryptjs.compare(password, users[0].hash, (error, result) => {
@@ -78,7 +83,6 @@ const login = (req: UserAuthInfoRequest, res: Response, next: NextFunction) => {
               return res.status(200).json({
                 message: "Authorization successful",
                 token,
-                user: users[0],
               });
             }
           });

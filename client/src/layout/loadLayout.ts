@@ -1,9 +1,10 @@
+import { User } from "../types/User";
 import loadFooter from "./footer/footer";
 import loadNavbar from "./navbar/navbar";
 
-function loadLayout() {
+function loadLayout(user: User | null) {
+  loadNavbar(user);
   loadFooter();
-  loadNavbar();
 }
 
 export default loadLayout;

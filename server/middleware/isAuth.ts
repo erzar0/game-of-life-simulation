@@ -15,7 +15,7 @@ const isAuth = (
 
     jwt.verify(token, SECRET, (error, user) => {
       if (error) {
-        return res.status(403);
+        return res.status(403).end();
       } else if (user) {
         req.user = user;
         next();

@@ -12,6 +12,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, "index.html"),
         about: resolve(__dirname, "about", "index.html"),
+        login: resolve(__dirname, "login", "index.html"),
+        register: resolve(__dirname, "register", "index.html"),
       },
     },
   },

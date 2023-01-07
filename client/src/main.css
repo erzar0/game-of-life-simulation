@@ -5,16 +5,35 @@
   font-family: Roboto, sans-serif;
   --colorContrast: #e63946ff;
   --colorText: #f1faeeff;
-  --colorLight: #a8dadcff;
-  --colorDarker: rgb(53, 96, 122);
-  --colorDarkest: #1d3557ff;
+  --colorLight: rgb(77, 154, 156);
+  --colorDarker: rgb(28, 86, 122);
+  --colorDarkest: rgb(15, 44, 83);
 }
 
 body {
   display: flex;
   flex-direction: column;
+
   background-color: var(--colorDarkest);
   color: var(--colorText);
   margin: 0;
+  padding: 0;
   min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+button {
+  border: none;
+}
+
+button:hover {
+  background-color: var(--colorContrast);
+  color: white;
+  border: none;
+  cursor: pointer;
 }

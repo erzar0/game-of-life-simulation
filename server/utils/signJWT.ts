@@ -6,14 +6,13 @@ const signJWT = (
   user: User,
   callback: (error: Error | null, token: string | null) => void
 ): void => {
-  const timeStamp = new Date().getTime();
-  const expirationTimeSeconds = 86400;
+  const expiresIn = "1d";
 
   try {
     jwt.sign(
       { username: user.username },
       SECRET as Secret,
-      { expiresIn: expirationTimeSeconds },
+      { expiresIn },
       (error, token) => {
         if (error) {
           callback(error, null);

@@ -75,7 +75,7 @@ class CellularAutomataRenderer {
           dy - 1,
           this.cellularAutomata.$cells[i][j] === 1 ? "red" : "white"
         );
-        rect.addEventListener("pointerover", (e) => {
+        const mouseClickHandler = (e: MouseEvent) => {
           const cell = this.cellularAutomata.$cells[i][j];
           if (cell === 0 && e.buttons === 1) {
             this.cellularAutomata.$cells[i][j] = 1;
@@ -84,7 +84,10 @@ class CellularAutomataRenderer {
             this.cellularAutomata.$cells[i][j] = 0;
             (e.target as SVGAElement).style.fill = "white";
           }
-        });
+        };
+        rect.addEventListener("pointerover", mouseClickHandler);
+        rect.addEventListener("mousedown", mouseClickHandler);
+        rect.addEventListener("contextmenu", (e) => e.preventDefault());
 
         rect.setAttribute("id", `${j},${i}`);
         this.renderedCells[i][j] = rect;

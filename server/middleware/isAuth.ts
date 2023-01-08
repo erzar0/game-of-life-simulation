@@ -2,6 +2,7 @@ import { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
 import { SECRET } from "../config/cfg";
 import { UserAuthInfoRequest } from "../types/UserAuthInfoRequest";
+import JwtPayloadExtended from "../types/JwtPayloadExtended";
 
 const isAuth = (
   req: UserAuthInfoRequest,
@@ -13,11 +14,11 @@ const isAuth = (
   if (authorization) {
     const token = authorization.split(" ")[1];
 
-    jwt.verify(token, SECRET, (error, user) => {
+    jwt.verify(token, SECRET, (error, token) => {
       if (error) {
         return res.status(403).end();
-      } else if (user) {
-        req.user = user;
+      } else if (token) {
+        req.token = token as JwtPayloadExtended;
         next();
       }
     });

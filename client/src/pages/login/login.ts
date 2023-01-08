@@ -10,9 +10,7 @@ async function login() {
     const username = usernameInput.value;
     const password = passwordInput.value;
     try {
-      console.log(username);
       const token = await authService.login({ username, password });
-      console.log(token);
 
       const payload = token?.payload;
       if (payload?.username && token?.raw) {
@@ -26,7 +24,6 @@ async function login() {
       if (payload?.username) {
         window.location.replace(window.location.origin);
       } else {
-        console.log("asfd");
         window.location.reload();
       }
     } catch (error) {

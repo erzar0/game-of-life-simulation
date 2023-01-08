@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { MONGODB_URI, PORT } from "./config/cfg";
 import { isAuth } from "./middleware/isAuth";
 import userRouter from "./routes/user";
+import gridConfigRouter from "./routes/gridConfig";
 import cors from "cors";
 mongoose.set("strictQuery", false);
 
@@ -18,6 +19,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/user", userRouter);
+app.use("/grid-config", gridConfigRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Health check");

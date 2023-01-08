@@ -4,6 +4,7 @@ import home from "./pages/home/home";
 import authService from "./services/auth";
 import login from "./pages/login/login";
 import register from "./pages/register/register";
+import gridConfigService from "./services/gridConfig";
 
 const logout = () => {
   window.localStorage.clear();
@@ -39,10 +40,11 @@ const getCurrentUser = () => {
 (async () => {
   validateToken();
   loadLayout(getCurrentUser());
+  const userGridConfigs = await gridConfigService.getUserConfigs();
 
   switch (window.location.pathname) {
     case "/":
-      home();
+      home(userGridConfigs);
       break;
     case "/login/":
       login();

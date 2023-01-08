@@ -4,6 +4,11 @@ import User from "../types/User";
 const UserSchema: Schema = new Schema({
   username: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
+  gridConfigs: {
+    type: [mongoose.SchemaTypes.ObjectId],
+    ref: "GridConfig",
+    default: [],
+  },
 });
 
 UserSchema.set("toJSON", {

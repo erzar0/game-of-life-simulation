@@ -11,6 +11,7 @@ interface Size {
 interface GridConfig {
   enabledCells: Position[];
   gridSize: Size;
+  id?: string;
 }
 
 type Cell = 1 | 0;

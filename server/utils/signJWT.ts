@@ -1,6 +1,7 @@
 import jwt, { Secret } from "jsonwebtoken";
 import { SECRET } from "../config/cfg";
 import User from "../types/User";
+import { JwtPayload } from "jsonwebtoken";
 
 const signJWT = (
   user: User,
@@ -10,7 +11,7 @@ const signJWT = (
 
   try {
     jwt.sign(
-      { username: user.username },
+      { username: user.username, id: user.id },
       SECRET as Secret,
       { expiresIn },
       (error, token) => {

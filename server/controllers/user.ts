@@ -66,28 +66,28 @@ const login = (req: UserAuthInfoRequest, res: Response, next: NextFunction) => {
   UserModel.find({ username })
     .exec()
     .then((users) => {
-      if (users.length !== 1) {
-        return res.status(500).end();
-      }
+      const user = users[0];
 
-      bycryptjs.compare(password, users[0].hash, (error, result) => {
-        if (error) {
-          return res.status(401).json({ message: "Unauthorized" });
-        } else if (result) {
-          signJWT(users[0], (_error, token) => {
-            if (_error) {
-              return res
-                .status(401)
-                .json({ message: "Unauthorized", error: _error });
-            } else if (token) {
-              return res.status(200).json({
-                message: "Authorization successful",
-                token,
-              });
-            }
-          });
-        }
-      });
+      if (user.hash) {
+        bycryptjs.compare(password, user.hash, (error, result) => {
+          if (error) {
+            return res.status(401).json({ message: "Unauthorized" });
+          } else if (result) {
+            signJWT(users[0], (_error, token) => {
+              if (_error) {
+                return res
+                  .status(401)
+                  .json({ message: "Unauthorized", error: _error });
+              } else if (token) {
+                return res.status(200).json({
+                  message: "Authorization successful",
+                  token,
+                });
+              }
+            });
+          }
+        });
+      }
     })
     .catch((error) => {
       return res.status(500).json({ message: error.message, error });
@@ -101,6 +101,7 @@ const getAllUsers = (
 ) => {
   UserModel.find()
     .select("-passowrd")
+    .populate("gridConfigs")
     .exec()
     .then((users) => {
       return res.status(200).json({ users });

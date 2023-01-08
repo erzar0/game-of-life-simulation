@@ -1,5 +1,6 @@
 import { User } from "../types/User";
 import decodeJWT from "../utils/decodeJWT";
+import getBearer from "../utils/getBearer";
 
 const baseUrl = "http://localhost:3001/user";
 interface Credentials {
@@ -62,11 +63,11 @@ const register = async (
 };
 
 const isCurrentTokenValid = async () => {
-  const token = window.localStorage.getItem("tokenJWT");
-  if (token) {
+  const bearer = getBearer();
+  if (bearer) {
     try {
       const res = await fetch(baseUrl + "/validate-token", {
-        headers: { authorization: "Bearer " + token },
+        headers: { authorization: bearer },
       });
 
       if (res.status === 200) {

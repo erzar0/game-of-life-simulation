@@ -2,7 +2,7 @@ import { User } from "../types/User";
 import decodeJWT from "../utils/decodeJWT";
 import getBearer from "../utils/getBearer";
 
-const baseUrl = "http://localhost:3001/user";
+const baseUrl = "http://localhost:30498/user";
 interface Credentials {
   username: string;
   password: string;
@@ -42,6 +42,7 @@ const register = async (
     return null;
   }
   try {
+    console.log(username)
     const res = await fetch(baseUrl + "/register", {
       method: "POST",
       headers: {

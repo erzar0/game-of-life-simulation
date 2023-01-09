@@ -1,6 +1,6 @@
 import { GridConfig } from "../types/Grid";
 import getBearer from "../utils/getBearer";
-const baseUrl = "http://localhost:3001/grid-config";
+const baseUrl = "http://localhost:30498/grid-config";
 
 const getUserConfigs = async () => {
   const bearer = getBearer();

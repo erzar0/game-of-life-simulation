@@ -6,7 +6,7 @@ services:
     volumes:
       - ./client:/code
     ports:
-      - 3000:3000
+      - 40498:40498
     depends_on:
       - server
     env_file:
@@ -19,11 +19,9 @@ services:
     volumes:
       - ./server:/code
     ports:
-      - 3001:3001
+      - 30498:30498
     depends_on:
       - mongo_db
-    env_file:
-      - ./server/.dev.env
 
   mongo_db:
     image: mongo:latest

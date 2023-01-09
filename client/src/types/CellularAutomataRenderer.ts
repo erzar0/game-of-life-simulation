@@ -4,6 +4,11 @@ import { createSvgLine, createSvgRectangle } from "../utils/svgHelpers";
 
 class CellularAutomataRenderer {
   constructor(svgCanvas: SVGAElement, cellularAutomata: CellularAutomata) {
+    this.init(svgCanvas, cellularAutomata);
+  }
+
+  public init(svgCanvas: SVGAElement, cellularAutomata: CellularAutomata) {
+    this.renderedCells = [];
     this.cellularAutomata = cellularAutomata;
     this.svgCanvas = svgCanvas;
     this.svgSize = {
@@ -34,10 +39,14 @@ class CellularAutomataRenderer {
     this.step();
   }
 
+  public get $gridConfig() {
+    return this.cellularAutomata.getConfig();
+  }
+
   //////////////////////////////////////////////////////////////////////////////
-  private svgCanvas: SVGAElement;
-  private svgSize: Size;
-  private cellularAutomata: CellularAutomata;
+  private svgCanvas!: SVGAElement;
+  private svgSize!: Size;
+  private cellularAutomata!: CellularAutomata;
   private renderedCells: SVGElement[][] = [];
   //////////////////////////////////////////////////////////////////////////////
   private initGridLayout() {

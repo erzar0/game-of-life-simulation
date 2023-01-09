@@ -12,6 +12,7 @@ interface GridConfig {
   enabledCells: Position[];
   gridSize: Size;
   id?: string;
+  name?: string;
 }
 
 type Cell = 1 | 0;

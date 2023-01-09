@@ -9,7 +9,9 @@
   --colorDarker: rgb(28, 86, 122);
   --colorDarkest: rgb(15, 44, 83);
 }
-
+* {
+  box-sizing: border-box;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -27,11 +29,13 @@ main {
   flex-grow: 1;
 }
 
-button {
+button,
+input[type="button"] {
   border: none;
 }
 
-button:hover {
+button:hover,
+input[type="button"]:hover {
   background-color: var(--colorContrast);
   color: white;
   border: none;

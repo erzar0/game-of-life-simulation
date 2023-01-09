@@ -1,10 +1,47 @@
 #control-panel {
   position: fixed;
+  min-width: max-content;
   background-color: var(--colorLight);
   border-radius: 0.3rem;
   padding: 0.5rem;
 }
 
+#control-panel > * {
+  margin: 0;
+}
+
 #svg-canvas {
   margin: auto;
+}
+
+#basic-controls-container {
+  display: flex;
+  margin: 0 0 0.2rem 0;
+}
+
+#basic-controls-container > input {
+  flex-grow: 1;
+  margin: 1px;
+  padding: 0;
+  border: 0;
+  height: 1.25rem;
+}
+
+#other-controls-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#other-controls-container > div {
+  padding: 0;
+  margin: 0 0 0.5rem 0;
+}
+
+#other-controls-container > div > * {
+  padding: 0;
+  margin: 0 0 0.2rem 0;
+  border: 0;
+  display: block;
+  width: 100%;
+  height: 1.25rem;
 }

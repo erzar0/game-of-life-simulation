@@ -16,6 +16,7 @@ const GridConfigSchema: Schema = new Schema<GridConfig>({
     width: { type: Number, required: true },
     height: { type: Number, required: true },
   },
+  name: { type: String, required: true },
 });
 
 GridConfigSchema.set("toJSON", {

@@ -2,28 +2,58 @@ import CellularAutomata from "../../types/CellularAutomata";
 import CellularAutomataRenderer from "../../types/CellularAutomataRenderer";
 import { GridConfig } from "../../types/Grid";
 import gameOfLifeRule from "./gameOfLifeRule";
+import gridConfigService from "../../services/gridConfig";
+import { User } from "../../types/User";
 
-async function home(userGridConfigs: GridConfig[]) {
+async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
   const svgCanvas = document.getElementById(
     "svg-canvas"
   ) as unknown as SVGAElement;
+  console.log(currentUser);
+
+  if (!userGridConfigs) {
+    userGridConfigs = [];
+    userGridConfigs.push({
+      enabledCells: [
+        { x: 1, y: 0 },
+        { x: 2, y: 1 },
+        { x: 0, y: 2 },
+        { x: 1, y: 2 },
+        { x: 2, y: 2 },
+      ],
+      gridSize: { width: 10, height: 10 },
+      name: "default",
+    });
+  }
 
   if (svgCanvas) {
     const stopBtn = document.getElementById("stop");
     const startBtn = document.getElementById("start");
     const clearBtn = document.getElementById("clear");
+
     const tickrateSlider = document.getElementById(
       "tickrate"
     ) as HTMLInputElement;
+    const tickrateValue = document.getElementById(
+      "tickrate-value"
+    ) as HTMLSpanElement;
+
     const gridConfigSelect = document.getElementById(
       "grid-config"
     ) as HTMLSelectElement;
 
+    const newGridConfigNameInput = document.getElementById(
+      "new-grid-config"
+    ) as HTMLInputElement;
+    const saveGridConfigButton = document.getElementById(
+      "save-new-grid-config"
+    ) as HTMLButtonElement;
+
     userGridConfigs.forEach((cfg, idx) => {
       const cfgOption = document.createElement("option") as HTMLOptionElement;
-      if (cfg.id) {
-        cfgOption.value = cfg.id;
-        cfgOption.innerHTML = cfg.id;
+      if (cfg.name) {
+        cfgOption.value = cfg.name;
+        cfgOption.innerHTML = cfg.name;
       } else {
         cfgOption.value = String(idx);
         cfgOption.innerHTML = String(idx);
@@ -39,34 +69,62 @@ async function home(userGridConfigs: GridConfig[]) {
 
     let renderInterval: number | undefined;
 
-    stopBtn?.addEventListener("click", () => {
+    const stopRendering = () => {
       clearInterval(renderInterval);
       renderInterval = undefined;
-    });
-    startBtn?.addEventListener("click", () => {
+    };
+    const startRendering = () => {
       renderInterval = setInterval(() => {
         gameOfLifeRenderer.step();
       }, (1 / parseInt(tickrateSlider?.value)) * 1000);
-    });
-    clearBtn?.addEventListener("click", () => {
+    };
+    const clearGrid = () => {
       gameOfLifeRenderer.clearCells();
-    });
-    tickrateSlider?.addEventListener("change", (e) => {
+    };
+    const changeTickrate = (e: Event) => {
       if (renderInterval) {
+        const tickrate = (e.target as unknown as HTMLInputElement).value;
+        tickrateValue.innerText = `Tickrate: ${tickrate}`;
         clearInterval(renderInterval);
         renderInterval = setInterval(() => {
           gameOfLifeRenderer.step();
-        }, (1 / parseInt((e.target as unknown as HTMLInputElement).value)) * 1000);
+        }, (1 / parseInt(tickrate)) * 1000);
       }
-    });
-    gridConfigSelect?.addEventListener("change", (e) => {
-      const configId = (e.target as HTMLSelectElement).value;
-      const config2load = userGridConfigs.find((cfg) => cfg.id === configId);
-      if (config2load) {
-        gameOfLife.loadFromConfig(config2load);
+    };
+    const loadNewConfig = (e: Event) => {
+      const configName = (e.target as HTMLSelectElement).value;
+      const selectedConfig = userGridConfigs.find(
+        (cfg) => cfg.name === configName
+      );
+      if (selectedConfig) {
+        svgCanvas.innerHTML = "";
+        const gameOfLife = new CellularAutomata(gameOfLifeRule, selectedConfig);
+
+        gameOfLifeRenderer.init(svgCanvas, gameOfLife);
       }
-      gameOfLifeRenderer.step();
-    });
+    };
+
+    const saveGridConfig = async () => {
+      const gridConfigName = newGridConfigNameInput.value;
+      let gridConfig = gameOfLifeRenderer.$gridConfig;
+      gridConfig = { ...gridConfig, name: gridConfigName };
+      await gridConfigService.addUserConfig(gridConfig);
+      window.location.reload();
+    };
+
+    stopBtn?.addEventListener("click", stopRendering);
+    startBtn?.addEventListener("click", startRendering);
+    clearBtn?.addEventListener("click", clearGrid);
+    tickrateSlider?.addEventListener("change", changeTickrate);
+    gridConfigSelect?.addEventListener("change", loadNewConfig);
+    saveGridConfigButton?.addEventListener("click", saveGridConfig);
+    if (!currentUser) {
+      Array.from(
+        document.getElementsByClassName("logged-user-options")
+      ).forEach((element) => {
+        (element as HTMLElement).style.display = "None";
+      });
+    }
   }
 }
 

@@ -11,11 +11,25 @@
   <body>
     <main>
       <div id="control-panel">
-        <input id="stop" type="button" value="stop" />
-        <input id="start" type="button" value="start" />
-        <input id="clear" type="button" value="clear" />
-        <input id="tickrate" type="range" min="1" max="60" value="1" />
-        <select id="grid-config"></select>
+        <div id="basic-controls-container">
+          <input id="stop" type="button" value="stop" />
+          <input id="start" type="button" value="start" />
+          <input id="clear" type="button" value="clear" />
+        </div>
+        <div id="other-controls-container">
+          <div>
+            <span id="tickrate-value">Tickrate: 1</span>
+            <input id="tickrate" type="range" min="1" max="60" value="1" />
+          </div>
+          <div class="logged-user-options">
+            <span>Selected grid config: </span>
+            <select id="grid-config"></select>
+          </div>
+          <div class="logged-user-options">
+            <input id="new-grid-config" type="text" />
+            <button id="save-new-grid-config">Save grid config</button>
+          </div>
+        </div>
       </div>
       <svg id="svg-canvas" width="1000" height="1000"></svg>
     </main>

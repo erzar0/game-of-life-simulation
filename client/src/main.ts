@@ -1,7 +1,6 @@
 /* eslint-disable indent */
 import loadLayout from "./layout/loadLayout";
 import home from "./pages/home/home";
-import authService from "./services/auth";
 import login from "./pages/login/login";
 import register from "./pages/register/register";
 import gridConfigService from "./services/gridConfig";
@@ -39,12 +38,13 @@ const getCurrentUser = () => {
 
 (async () => {
   validateToken();
-  loadLayout(getCurrentUser());
+  const currentUser = getCurrentUser();
+  loadLayout(currentUser);
   const userGridConfigs = await gridConfigService.getUserConfigs();
 
   switch (window.location.pathname) {
     case "/":
-      home(userGridConfigs);
+      home(userGridConfigs, currentUser);
       break;
     case "/login/":
       login();

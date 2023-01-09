@@ -42,6 +42,7 @@ const addGridConfig = async (req: UserAuthInfoRequest, res: Response) => {
   const token = req.token as JwtPayloadExtended;
   const username = token.username;
   const user = (await UserModel.find({ username }).exec())[0];
+  console.log(req.body);
   try {
     const gridConfig = await GridConfigModel.create({
       ...req.body,

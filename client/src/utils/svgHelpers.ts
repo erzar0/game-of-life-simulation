@@ -1,6 +1,8 @@
 function createSvgElement(elem: string) {
   return document.createElementNS("http://www.w3.org/2000/svg", elem);
 }
+
+
 function createSvgLine(x1: number, x2: number, y1: number, y2: number) {
   const line = createSvgElement("line");
   line.setAttribute("x1", x1.toString());

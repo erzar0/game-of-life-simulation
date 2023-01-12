@@ -42,7 +42,6 @@ const register = async (
     return null;
   }
   try {
-    console.log(username)
     const res = await fetch(baseUrl + "/register", {
       method: "POST",
       headers: {

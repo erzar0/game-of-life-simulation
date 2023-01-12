@@ -5,15 +5,7 @@ import gameOfLifeRule from "./gameOfLifeRule";
 import gridConfigService from "../../services/gridConfig";
 import { User } from "../../types/User";
 
-async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
-  const svgCanvas = document.getElementById(
-    "svg-canvas"
-  ) as unknown as SVGAElement;
-  console.log(currentUser);
-
-  if (!userGridConfigs) {
-    userGridConfigs = [];
-    userGridConfigs.push({
+const gridConfigDefault = {
       enabledCells: [
         { x: 1, y: 0 },
         { x: 2, y: 1 },
@@ -23,7 +15,16 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
       ],
       gridSize: { width: 10, height: 10 },
       name: "default",
-    });
+    }
+
+async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
+  const svgCanvas = document.getElementById(
+    "svg-canvas"
+  ) as unknown as SVGAElement;
+
+  if (!userGridConfigs) {
+    userGridConfigs = [];
+    userGridConfigs.push(gridConfigDefault);
   }
 
   if (svgCanvas) {
@@ -37,6 +38,9 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
     const tickrateValue = document.getElementById(
       "tickrate-value"
     ) as HTMLSpanElement;
+
+    const gridSizeSlider = document.getElementById("grid-size") as HTMLInputElement
+    const gridSizeValue = document.getElementById("grid-size-value") as HTMLSpanElement
 
     const gridConfigSelect = document.getElementById(
       "grid-config"
@@ -91,6 +95,15 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
         }, (1 / parseInt(tickrate)) * 1000);
       }
     };
+    const changeGridSize = (e: Event) => {
+      const gridSize = parseInt((e.target  as unknown as HTMLInputElement).value)
+      gridSizeValue.innerText = `Grid size: ${gridSize}`
+        svgCanvas.innerHTML = "";
+        const gameOfLife = new CellularAutomata(gameOfLifeRule, {...gridConfigDefault, gridSize:{width: gridSize, height: gridSize}});
+
+        gameOfLifeRenderer.init(svgCanvas, gameOfLife);
+
+    }
     const loadNewConfig = (e: Event) => {
       const configName = (e.target as HTMLSelectElement).value;
       const selectedConfig = userGridConfigs.find(
@@ -103,7 +116,6 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
         gameOfLifeRenderer.init(svgCanvas, gameOfLife);
       }
     };
-
     const saveGridConfig = async () => {
       const gridConfigName = newGridConfigNameInput.value;
       let gridConfig = gameOfLifeRenderer.$gridConfig;
@@ -116,8 +128,10 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
     startBtn?.addEventListener("click", startRendering);
     clearBtn?.addEventListener("click", clearGrid);
     tickrateSlider?.addEventListener("change", changeTickrate);
+    gridSizeSlider?.addEventListener("change", changeGridSize)
     gridConfigSelect?.addEventListener("change", loadNewConfig);
     saveGridConfigButton?.addEventListener("click", saveGridConfig);
+
     if (!currentUser) {
       Array.from(
         document.getElementsByClassName("logged-user-options")

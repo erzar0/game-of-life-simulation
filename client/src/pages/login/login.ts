@@ -4,6 +4,8 @@ async function login() {
   const usernameInput = document.getElementById("username") as HTMLInputElement;
   const passwordInput = document.getElementById("password") as HTMLInputElement;
   const submitButton = document.getElementById("submit") as HTMLButtonElement;
+  const errorMessage = document.getElementById("error-message") as HTMLButtonElement
+  let timeout: number| undefined 
 
   submitButton?.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -24,7 +26,14 @@ async function login() {
       if (payload?.username) {
         window.location.replace(window.location.origin);
       } else {
-        window.location.reload();
+        if(errorMessage)
+        {
+          clearTimeout(timeout)
+          errorMessage.innerText = "Invalid login credentials!"
+          timeout = setTimeout(() => {
+            errorMessage.innerText = ""
+          }, 5000)
+        }
       }
     } catch (error) {
       console.log(error);

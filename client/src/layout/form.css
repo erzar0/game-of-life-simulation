@@ -16,6 +16,11 @@
   border-radius: 2rem;
 }
 
+#error-message{
+  font-size: 2rem;
+  color: red
+}
+
 .input-container {
   margin-bottom: 0.7rem;
 }
@@ -30,3 +35,4 @@ input {
   display: block;
   font-size: 1.5rem;
 }
+

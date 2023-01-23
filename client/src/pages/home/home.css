@@ -1,5 +1,7 @@
 #control-panel {
-  position: fixed;
+  position: absolute;
+  left: 0;
+  
   min-width: max-content;
   background-color: var(--colorLight);
   border-radius: 0.3rem;

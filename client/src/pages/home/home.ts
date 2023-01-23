@@ -5,6 +5,15 @@ import gameOfLifeRule from "./gameOfLifeRule";
 import gridConfigService from "../../services/gridConfig";
 import { User } from "../../types/User";
 
+function isEmptyArray(array: unknown) {
+    if (!Array.isArray(array)) {
+        return false;
+    }
+    if (array.length == 0) {
+        return true;
+    }
+    return false;
+}
 const gridConfigDefault = {
       enabledCells: [
         { x: 1, y: 0 },
@@ -22,10 +31,12 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
     "svg-canvas"
   ) as unknown as SVGAElement;
 
-  if (!userGridConfigs) {
+  if (!userGridConfigs || isEmptyArray(userGridConfigs) ) {
     userGridConfigs = [];
-    userGridConfigs.push(gridConfigDefault);
+
+   userGridConfigs.push(gridConfigDefault);
   }
+   console.log(userGridConfigs)
 
   if (svgCanvas) {
     const stopBtn = document.getElementById("stop");
@@ -54,6 +65,11 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
     ) as HTMLButtonElement;
 
     userGridConfigs.forEach((cfg, idx) => {
+      if(idx === 0)
+      {
+      gridSizeValue.innerText = `Grid size: ${cfg.gridSize.width}`
+      gridSizeSlider.value = `${cfg.gridSize.width}`
+      }
       const cfgOption = document.createElement("option") as HTMLOptionElement;
       if (cfg.name) {
         cfgOption.value = cfg.name;
@@ -113,6 +129,8 @@ async function home(userGridConfigs: GridConfig[], currentUser: User | null) {
         svgCanvas.innerHTML = "";
         const gameOfLife = new CellularAutomata(gameOfLifeRule, selectedConfig);
 
+      gridSizeValue.innerText = `Grid size: ${selectedConfig.gridSize.width}`
+      gridSizeSlider.value = `${selectedConfig.gridSize.width}`
         gameOfLifeRenderer.init(svgCanvas, gameOfLife);
       }
     };

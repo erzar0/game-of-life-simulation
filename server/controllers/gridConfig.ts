@@ -41,8 +41,14 @@ const getUserConfigs = async (req: UserAuthInfoRequest, res: Response) => {
 const addGridConfig = async (req: UserAuthInfoRequest, res: Response) => {
   const token = req.token as JwtPayloadExtended;
   const username = token.username;
-  const user = (await UserModel.find({ username }).exec())[0];
   try {
+    const user = (await UserModel.find({ username }).exec())[0];
+    const doesCfgExist = (await GridConfigModel.find({name: req.body.name })).length > 0
+    if(doesCfgExist)
+    {
+      return res.status(409).end()
+    }
+    
     const gridConfig = await GridConfigModel.create({
       ...req.body,
     });

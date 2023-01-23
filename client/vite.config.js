@@ -16,5 +16,11 @@ export default defineConfig({
         register: resolve(__dirname, "register", "index.html"),
       },
     },
-  },
+    emptyOutDir: true,
+    minify: false
+  }
+  ,
+  preview: {
+    port: 40498,
+  }
 });

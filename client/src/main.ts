@@ -54,6 +54,7 @@ const getCurrentUser = () => {
       break;
     case "/logout/":
       logout();
+      window.location.replace(window.location.origin);
       break;
     case "/about/":
       break;

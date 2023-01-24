@@ -1,5 +1,6 @@
 import { User } from "../../types/User";
 import html from "../../utils/html";
+import logout from "../../utils/logout";
 import parseHtmlElement from "../../utils/parseHtmlElement";
 
 function loadNavbar(user: User | null) {
@@ -15,7 +16,7 @@ function loadNavbar(user: User | null) {
   const registerHtml = html`<a class="account-element" href="/register/"
     >Register</a
   >`;
-  const logoutHtml = html`<a class="account-element" href="/logout/"
+  const logoutHtml = html`<a id="logout" class="account-element" href="/"
     >Logout</a
   >`;
   const loggedUserHtml = user?.username
@@ -35,7 +36,9 @@ function loadNavbar(user: User | null) {
       account.appendChild(parseHtmlElement(loginHtml));
       account.appendChild(parseHtmlElement(registerHtml));
     } else {
-      account.appendChild(parseHtmlElement(logoutHtml));
+      const logoutBtn = parseHtmlElement(logoutHtml);
+      logoutBtn.addEventListener("click", () => logout());
+      account.appendChild(logoutBtn);
       account.appendChild(parseHtmlElement(loggedUserHtml));
     }
   }

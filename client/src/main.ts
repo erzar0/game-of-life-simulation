@@ -2,13 +2,9 @@
 import loadLayout from "./layout/loadLayout";
 import home from "./pages/home/home";
 import login from "./pages/login/login";
+import logout from "./utils/logout";
 import register from "./pages/register/register";
 import gridConfigService from "./services/gridConfig";
-
-const logout = () => {
-  window.localStorage.clear();
-  window.location.replace(window.location.origin);
-};
 
 const validateToken = () => {
   let isTokenValid = false;
@@ -51,10 +47,6 @@ const getCurrentUser = () => {
       break;
     case "/register/":
       register();
-      break;
-    case "/logout/":
-      logout();
-      window.location.replace(window.location.origin);
       break;
     case "/about/":
       break;

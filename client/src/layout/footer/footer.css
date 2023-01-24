@@ -4,5 +4,6 @@ footer {
   justify-content: center;
   background-color: var(--colorDarker);
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0;
 }
+footer > span {font-size: 2rem; margin: 0;display:inline-block; transform: rotate(180deg)}

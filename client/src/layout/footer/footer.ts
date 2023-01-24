@@ -3,10 +3,7 @@ import html from "../../utils/html";
 
 function loadFooter() {
   const footerHtml = html`
-    <footer>
-      © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © ©
-      © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © © ©
-    </footer>
+    <footer ><span >&copy;</span></footer>
   `;
 
   const body = document.querySelector("body");

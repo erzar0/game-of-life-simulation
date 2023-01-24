@@ -2,7 +2,7 @@ import { User } from "../types/User";
 import decodeJWT from "../utils/decodeJWT";
 import getBearer from "../utils/getBearer";
 
-const baseUrl = "https://game-of-life-api.onrender.com/user";
+const baseUrl = "https://localhost:30498/user";
 interface Credentials {
   username: string;
   password: string;

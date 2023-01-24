@@ -1,7 +1,7 @@
 import { GridConfig } from "../types/Grid";
 import getBearer from "../utils/getBearer";
 
-const baseUrl = "https://game-of-life-api.onrender.com/grid-config";
+const baseUrl = "https://localhost:30498/grid-config";
 
 const getUserConfigs = async () => {
   const bearer = getBearer();

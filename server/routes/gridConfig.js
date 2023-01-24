@@ -1,0 +1,10 @@
+"use strict";
+exports.__esModule = true;
+var express_1 = require("express");
+var isAuth_1 = require("../middleware/isAuth");
+var gridConfig_1 = require("../controllers/gridConfig");
+var router = express_1["default"].Router();
+router.get("/get/all", gridConfig_1["default"].getAll);
+router.get("/get/user", isAuth_1.isAuth, gridConfig_1["default"].getUserConfigs);
+router.post("/", isAuth_1.isAuth, gridConfig_1["default"].addGridConfig);
+exports["default"] = router;

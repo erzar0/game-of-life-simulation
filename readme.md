@@ -9,3 +9,7 @@ Commands to invoke in `server` directory:
 Similarly in `client` directory:
 * `npm install`
 * `npm run preview`
+
+#Example:
+https://user-images.githubusercontent.com/106091475/232846395-32ad3d0c-f424-4e97-bf50-64968cc3405b.mp4
+
